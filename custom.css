@@ -1,0 +1,87 @@
+<style>
+    /* Tooltip Wrapper with Icon */
+.tooltip1_element-wrapper {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #25d5f3;
+    border-radius: 50%;
+    opacity: 50%;
+}
+
+/* Pseudo-element for Pulsing Effect */
+.tooltip1_element-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #25d5f3;
+    border-radius: 50%;
+    z-index: -1;
+    animation: pulse 2s linear infinite;
+}
+
+/* Keyframes for Smooth, Continuous Pulses */
+@keyframes pulse {
+    0% {
+        transform: scale(0.65);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+</style>
+
+  <style>
+      /* CTA Modal Styles */
+
+      /* Initially, the CTA modal is hidden with opacity */
+  #cta_modal {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease; /* Smooth transition */
+      display: none; /* Ensure the modal is hidden on page load */
+  }
+
+/* When the CTA modal is visible, opacity changes and interaction is enabled */
+#cta_modal.is-visible {
+    opacity: 1;
+    pointer-events: all; /* Allows interaction when visible */
+    display: flex; /* Keeps your Webflow flexbox structure intact */
+}
+
+/* CTA Modal Styles */
+
+/* Initially, the CTA modal is hidden with opacity */
+#view_details_modal {
+    opacity: 1;
+    pointer-events: none;
+    transition: opacity 0.3s ease; /* Smooth transition */
+    display: none; /* Ensure the modal is hidden on page load */
+}
+
+/* When the CTA modal is visible, opacity changes and interaction is enabled */
+#view_details_modal.is-visible {
+    opacity: 1;
+    pointer-events: all; /* Allows interaction when visible */
+    display: flex; /* Keeps your Webflow flexbox structure intact */
+}
+
+
+/* Shared Styles: Disable body scrolling when any modal is open */
+body.modal-open {
+    overflow: hidden;
+}
+
+</style>

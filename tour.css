@@ -1,0 +1,33 @@
+<style>
+
+#close-tour-btn {
+    bottom: 20px;
+    right: 20px;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: none;
+}
+
+.hidden {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+
+.highlight {
+    position: relative;
+    z-index: 10001;
+    border: 2px solid rgba(37, 213, 243, 0.5);
+    box-shadow: 0 0 15px 5px rgba(37, 213, 243, 0.5);
+    transition: all 0.3s ease-in-out;
+}
+
+</style>
