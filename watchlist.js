@@ -8,7 +8,7 @@
         // ---------------------------
         let currentHighlight = null;
         let demoValue = "";
-        let startID = "our-recommendation";
+        let startID = "watchlist-wrapper";
         $('.callout').hide();
         $('.callout-static').hide();
 
@@ -48,14 +48,8 @@
 
         if (demoValue === "tour") {
             unlockScroll(); // Unlock scroll
-            startTour(); // Start the tour
+            startTour(startID); // Start the tour
         }
-
-        // -------------------
-        // Reset Tour
-        // -------------------
-
-        // const demoValue = getDemoMode();
 
         // ---------------------------
         // Add Demo Mode to Nav Links
@@ -130,7 +124,6 @@
             }
         });
 
-
         // ---------------------------
         // Functions
         // ---------------------------
@@ -140,12 +133,6 @@
             currentUrl.searchParams.set(key, value);
             window.history.replaceState({}, '', currentUrl);
             console.log("Updated URL:", currentUrl.toString());
-        }
-
-        function getDemoMode() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let demo = urlParams.get("demo");
-            return demo;
         }
 
         function appendQueryToLinks(className, key, value) {
@@ -163,9 +150,12 @@
             return demo;
         }
 
-        // -------------------
-        // Scroll Lock Functions
-        // -------------------
+        function getURLParam(paramName) {
+            const urlParamsNew = new URLSearchParams(window.location.search);
+            let paramVal = urlParamsNew.get(paramName);
+            return paramVal;
+        }
+
         function lockScroll() {
             $('body').addClass('modal-open');
         }
@@ -183,7 +173,6 @@
             if (!startID) { startID = 'our-recommendation'; }
             highlightElement($('#' + startID)); // Start the tour at the first element
         }
-
 
         // Function to highlight an element and reveal the callout
         function highlightElement(target) {

@@ -8,7 +8,6 @@
         // ---------------------------
         let currentHighlight = null;
         let demoValue = "";
-        let startID = "our-recommendation";
         $('.callout').hide();
         $('.callout-static').hide();
 
