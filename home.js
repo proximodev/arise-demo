@@ -8,13 +8,22 @@
         // ---------------------------
         let currentHighlight = null;
         let demoValue = "";
+        let tourJumpID = "";
         let startID = "our-recommendation";
+
         $('.callout').hide();
         $('.callout-static').hide();
 
         // -------------------
-        // Start Tour
+        // Start or Resume Tour
         // -------------------
+
+        demoValue = getDemoMode();
+        tourJumpID = getHashtagFromURL();
+
+        if (tourJumpID && tourJumpID.trim() !== "") {
+            startID = tourJumpID;
+        }
 
         if (!sessionStorage.getItem('modalSeen')) {
             $('.welcome_modal').css('display', 'flex'); // Show the welcome modal
@@ -28,7 +37,7 @@
             addQueryParam("demo", "tour");
             $('.welcome_modal').css('display', 'none'); // Hide the welcome modal
             unlockScroll(); // Unlock scroll
-            startTour(); // Start the tour
+            startTour(startID); // Start the tour
         });
 
         // Close the welcome modal when the close button is clicked
@@ -39,23 +48,18 @@
             unlockScroll(); // Unlock scroll
         });
 
-        // ---------------------------
-        // Set Demo Mode if undefined
-        // ---------------------------
-        if (demoValue === "") {
-            demoValue = getDemoMode();
-        }
-
+        // if not starting tour, jump to startID or end screen
         if (demoValue === "tour") {
-            unlockScroll(); // Unlock scroll
-            startTour(); // Start the tour
+
+            if (tourJumpID === "end") {
+                $('.end_modal').css('display', 'flex');
+                lockScroll();
+            } else {
+                unlockScroll();
+                startTour(startID);
+            }
+
         }
-
-        // -------------------
-        // Reset Tour
-        // -------------------
-
-        // const demoValue = getDemoMode();
 
         // ---------------------------
         // Add Demo Mode to Nav Links
@@ -130,7 +134,6 @@
             }
         });
 
-
         // ---------------------------
         // Functions
         // ---------------------------
@@ -140,12 +143,6 @@
             currentUrl.searchParams.set(key, value);
             window.history.replaceState({}, '', currentUrl);
             console.log("Updated URL:", currentUrl.toString());
-        }
-
-        function getDemoMode() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let demo = urlParams.get("demo");
-            return demo;
         }
 
         function appendQueryToLinks(className, key, value) {
@@ -163,9 +160,21 @@
             return demo;
         }
 
-        // -------------------
-        // Scroll Lock Functions
-        // -------------------
+        function getHashtagFromURL() {
+            let hash = window.location.hash;
+
+            if (hash) {
+                const hashtag = hash.substring(1);
+                console.log("Hashtag:", hashtag);
+                return hashtag;
+            } else {
+                return null;
+            }
+        }
+
+        // Example usage:
+        const hashtag = getHashtagFromURL();
+
         function lockScroll() {
             $('body').addClass('modal-open');
         }
@@ -183,7 +192,6 @@
             if (!startID) { startID = 'our-recommendation'; }
             highlightElement($('#' + startID)); // Start the tour at the first element
         }
-
 
         // Function to highlight an element and reveal the callout
         function highlightElement(target) {

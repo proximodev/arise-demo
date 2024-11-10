@@ -8,12 +8,20 @@
         // ---------------------------
         let currentHighlight = null;
         let demoValue = "";
+        let tourJumpID = "";
+        let startID = "our-recommendation";
+
         $('.callout').hide();
         $('.callout-static').hide();
 
         // -------------------
         // Start Tour
         // -------------------
+
+        tourJumpID = getHashtagFromURL();
+        if (tourJumpID && tourJumpID.substring(1).trim() !== "") {
+            let startID = tourJumpID;
+        }
 
         if (!sessionStorage.getItem('modalSeen')) {
             $('.welcome_modal').css('display', 'flex'); // Show the welcome modal
@@ -154,6 +162,21 @@
             let paramVal = urlParamsNew.get(paramName);
             return paramVal;
         }
+
+        function getHashtagFromURL() {
+            let hash = window.location.hash;
+
+            if (hash) {
+                const hashtag = hash.substring(1);
+                console.log("Hashtag:", hashtag);
+                return hashtag;
+            } else {
+                return null;
+            }
+        }
+
+        // Example usage:
+        const hashtag = getHashtagFromURL();
 
         function lockScroll() {
             $('body').addClass('modal-open');
